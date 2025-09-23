@@ -5,18 +5,27 @@ function Home(){
 
     const[searchQuery,setSearchQuery]=useState("");
     const[weatherData,setWeatherData]=useState(null);
+    const[loading,setloading]=useState(false);
+    const[error,setError]= useState(true);
+
 
   
     const searchWeather = async (e) => {
     e.preventDefault();
     if (!searchQuery.trim()) return
+
+    setloading(true);
     try{
         const weatherResponse= await getWeatherData(searchQuery);
         setWeatherData(weatherResponse);
-        console.log(weatherResponse);
+        setError(null);
     }catch(err){
+        setError("Failed to load Weather")
+        setWeatherData(null);
         console.log(err);
 
+    }finally{
+        setloading(false);
     }
     }
     return(
@@ -33,6 +42,8 @@ function Home(){
                     Get Weather
                 </button>
             </form>
+            {loading && <p>Loading....</p>}
+            {error && <p>{error}</p>}
             { weatherData &&(
             <div>
                 {(String(weatherData.cod)==="200")?(<div>
