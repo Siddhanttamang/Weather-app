@@ -1,5 +1,6 @@
 import { useState ,useEffect} from "react";
-import {getWeatherData} from "../services/weatherApi.js"
+import {getWeatherData} from "../services/weatherApi.js";
+import Weather from "../components/Weather.jsx";
 
 function Home(){
 
@@ -42,24 +43,13 @@ function Home(){
                     Get Weather
                 </button>
             </form>
-            {loading && <p>Loading....</p>}
-            {error && <p>{error}</p>}
-            { weatherData &&(
-            <div>
-                {(String(weatherData.cod)==="200")?(<div>
-                    <h3>{weatherData.name}</h3>
-                    <p>Weather: {weatherData.weather[0].description}</p>
-                    <p>Temperature: {weatherData.main.temp} °C</p>
-                    <p>Feels Like: {weatherData.main.feels_like} °C</p>
-                    <p>Humidity: {weatherData.main.humidity} %</p>
-                    <p>Wind Speed: {weatherData.wind.speed} m/s</p>
-                </div>):(<div>
-                    <p>{weatherData.message}</p>
-                </div>)
-                }
-                
-            </div>)
-            }   
+            {loading && <div className="loading">
+                <p>Loading....</p>
+                </div>}
+            {error && <div className="error">
+                <p>{error}</p>
+                </div>}
+            { weatherData && <Weather weatherData={weatherData}/>}   
 
         </div>
 
