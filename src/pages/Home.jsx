@@ -1,25 +1,21 @@
 import { useState ,useEffect} from "react";
 import {getWeatherData} from "../services/weatherApi.js";
 import Weather from "../components/Weather.jsx";
-
+import NavBar from "../components/NavBar.jsx"
 function Home(){
-
-    const[searchQuery,setSearchQuery]=useState("");
     const[weatherData,setWeatherData]=useState(null);
     const[loading,setloading]=useState(false);
     const[error,setError]= useState(true);
 
 
   
-    const searchWeather = async (e) => {
-    e.preventDefault();
-    if (!searchQuery.trim()) return
-
+    const searchWeather = async (query) => {
     setloading(true);
     try{
-        const weatherResponse= await getWeatherData(searchQuery);
+        const weatherResponse= await getWeatherData(query);
         setWeatherData(weatherResponse);
         setError(null);
+        console.log(weatherResponse);
     }catch(err){
         setError("Failed to load Weather")
         setWeatherData(null);
@@ -30,25 +26,16 @@ function Home(){
     }
     }
     return(
-        <div className="home">
-            <form onSubmit={searchWeather} className="search-weather">
-                <input 
-                type="text"
-                placeholder="Enter City"
-                className="search-input"
-                value={searchQuery}
-                onChange={(e)=>{setSearchQuery(e.target.value)}}
-                />
-                <button type="submit" className="search-button">
-                    Get Weather
-                </button>
-            </form>
-            {loading && <div className="loading">
-                <p>Loading....</p>
-                </div>}
-            {error && <div className="error">
-                <p>{error}</p>
-                </div>}
+        <div className="flex flex-col items-center gap-6">
+      <NavBar onSearch={searchWeather} />
+
+      {loading && <p className="text-blue-600 font-medium">Loading...</p>}
+
+      {error && (
+        <div className=" bg-red-100 border border-red-400 text-red-600 rounded-md">
+          {error}
+        </div>
+      )}
             { weatherData && <Weather weatherData={weatherData}/>}   
 
         </div>
