@@ -4,10 +4,33 @@ import Weather from "../components/Weather.jsx";
 import SearchBar from "../components/SearchBar.jsx";
 import { useWeatherContext } from "../contexts/WeatherContext.jsx";
 function Home(){
+    const[bg,setBg]=useState("");
     const{weatherData,loading,error,desc}=useWeatherContext();
+    console.log(desc);
+    useEffect(()=>{
+      switch(desc){
+            case "01d":
+                setBg("bg-[url('../images/clear-sky.jpg')]");
+                break;
+            case "01n":
+                setBg("bg-[url('../images/clear-sky-night.jpg')]")
+                break;
+            case "02d":
+                setBg("bg-[url('../images/few-clouds.jpg')]")
+                break;
+            case "02n":
+                setBg("bg-[url('../images/few-clouds-night.jpg')]")
+                break;
+            default:
+                setBg("");
+                break;
+        }
+      
+    },[desc]);
+    
     
     return(
-        <div className={`flex flex-col h-dvh items-center ${desc ?" bg-[url('../images/sky.jpg')]":"bg-gradient-to-br from-blue-200 via-sky-300 to-blue-400"} p-8`}>
+        <div className={`flex flex-col h-dvh items-center ${desc ? bg:"bg-gradient-to-br from-blue-200 via-sky-300 to-blue-400"} p-8`}>
             <SearchBar/>
       {loading && <p className="text-blue-600 font-medium">Loading...</p>}
 
