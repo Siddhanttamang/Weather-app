@@ -1,4 +1,6 @@
-function Weather({ weatherData }) {
+import { useWeatherContext } from "../contexts/WeatherContext";
+function Weather() {
+  const {weatherData}= useWeatherContext();
   if (!weatherData) return null;
 
   return (

@@ -10,6 +10,7 @@ export const WeatherProvider=({children})=>{
     const[loading,setloading]=useState(false);
     const[error,setError]= useState(true);
     const[desc,setDesc]=useState("");
+    const[bg,setBg]=useState("");
 
 
   
@@ -21,7 +22,7 @@ export const WeatherProvider=({children})=>{
         setError(null);
         console.log(weatherResponse);
         setDesc(weatherResponse.weather[0].icon)
-        console.log(weatherResponse.weather[0].icon); // should print something like "01d"
+        console.log(typeof weatherResponse.weather[0].icon); // should print something like "01d"
 
     }catch(err){
         setError("Failed to load Weather")
@@ -30,6 +31,8 @@ export const WeatherProvider=({children})=>{
 
     }finally{
         setloading(false);
+    
+    
     }
     }
     const value={
