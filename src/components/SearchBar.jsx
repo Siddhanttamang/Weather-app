@@ -1,11 +1,13 @@
 import {useState} from 'react';
-function SearchBar({onSearch}){
+import {useWeatherContext} from "../contexts/WeatherContext.jsx";
+function SearchBar(){
+    
     const [searchQuery,setSearchQuery]= useState("");
+    const {searchWeather}=useWeatherContext();
     function handleSubmit(e){
         e.preventDefault();
         if(!searchQuery.trim()) return;
-        onSearch(searchQuery);
-
+        searchWeather(searchQuery);
 
     }
 

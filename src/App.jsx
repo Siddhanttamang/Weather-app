@@ -3,18 +3,15 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './css/index.css'
 import Home from './pages/Home'
-import { Routes,Route } from 'react-router-dom'
+import { WeatherProvider } from './contexts/WeatherContext'
 
 function App() {
   return (
-    <>
+    <WeatherProvider>
     <main>
-      <Routes>
-        <Route path="/" element={<Home/>}/>
-      </Routes>
+      <Home/>
     </main>
-
-    </>
+    </WeatherProvider>
   )
 }
 

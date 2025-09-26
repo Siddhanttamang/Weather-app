@@ -2,9 +2,9 @@ function Weather({ weatherData }) {
   if (!weatherData) return null;
 
   return (
-    <div className="w-dvw h-dvh flex  justify-center p-4 ">
+    <div className="w-dvw h-dvh flex  justify-center p-8  ">
       {String(weatherData.cod) === "200" ? (
-        <div className="bg-white/80 backdrop-blur-md shadow-xl rounded-2xl p-6 max-w-sm w-full text-gray-800">
+        <div className="bg-transparent backdrop-blur-md shadow-xl rounded-2xl p-6 max-w-sm w-full text-gray-800">
           {/* Location */}
           <h3 className="text-2xl font-bold text-center mb-4">{weatherData.name}</h3>
 
